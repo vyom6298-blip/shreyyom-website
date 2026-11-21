@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 110" width="100%" height="100%">
+  <defs>
+    <linearGradient id="shreySaffron" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF7A00" />
+      <stop offset="100%" stop-color="#E65100" />
+    </linearGradient>
+    <linearGradient id="shreyGreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2E7D32" />
+      <stop offset="100%" stop-color="#1B5E20" />
+    </linearGradient>
+    <filter id="logoShadow" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.12" />
+    </filter>
+  </defs>
+
+  <!-- TRICOLOR SQUARE EMBLEM (Exact match to shreyyom.com live header) -->
+  <g transform="translate(10, 15)" filter="url(#logoShadow)">
+    <!-- Base Rounded Square Border -->
+    <rect x="0" y="0" width="78" height="78" rx="18" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="2" />
+    
+    <!-- Top Saffron Curved Ribbon -->
+    <path d="M 14 36 C 14 24, 24 14, 39 14 C 54 14, 64 24, 64 36 C 54 36, 44 26, 32 30 C 22 34, 18 36, 14 36 Z" 
+          fill="url(#shreySaffron)" />
+          
+    <!-- Bottom Green Curved Ribbon -->
+    <path d="M 64 42 C 64 54, 54 64, 39 64 C 24 64, 14 54, 14 42 C 24 42, 34 52, 46 48 C 56 44, 60 42, 64 42 Z" 
+          fill="url(#shreyGreen)" />
+
+    <!-- Center Chakra Dot / Node -->
+    <circle cx="39" cy="39" r="6.5" fill="#FFFFFF" stroke="#E65100" stroke-width="2.5" />
+    <circle cx="39" cy="39" r="2.5" fill="#1B5E20" />
+  </g>
+
+  <!-- BRAND NAME & TAG -->
+  <g transform="translate(105, 54)">
+    <text font-family="'Sora', 'Inter', system-ui, sans-serif" font-size="38" font-weight="800" letter-spacing="-0.02em" fill="#111827">
+      Shreyyom
+    </text>
+  </g>
+
+  <!-- CONSULTANCY SUBTITLE -->
+  <g transform="translate(106, 82)">
+    <text font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="800" letter-spacing="0.28em" fill="#166534">
+      CONSULTANCY
+    </text>
+  </g>
+</svg>

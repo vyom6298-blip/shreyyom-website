@@ -1,0 +1,195 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   SHREYYOM CONSULTANCY ENTERPRISE DESIGN SYSTEM
+   Official Palette: Saffron/Orange (#EA580C), Forest Green (#061A12, #15803D), Warm Ivory (#FCFBF9)
+   Tagline: TURNING BUSINESS POTENTIAL INTO FUNDED REALITY
+   ============================================================ */
+
+:root {
+  --canvas: #FCFBF9;
+  --paper: #FFFFFF;
+  --ink: #0F172A;
+  --graphite: #374151;
+  --muted: #6B7280;
+  --line: #E5E7EB;
+  --blue: #EA580C;
+  --blue-soft: #FFF7ED;
+  --blue-deep: #061A12;
+  --sky: #4ADE80;
+  --sky-soft: #F0FDF4;
+  --emerald: #16A34A;
+  --amber: #EA580C;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: auto; /* Managed by Lenis */
+  background-color: var(--canvas);
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+  cursor: default;
+}
+
+@media (max-width: 1024px) {
+  body {
+    cursor: auto !important;
+  }
+}
+
+/* Ensure inputs, buttons, and content elements remain fully interactive */
+input, textarea, select, option {
+  cursor: text !important;
+}
+button, a, label, [role="button"], select {
+  cursor: pointer !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Sora', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.025em;
+  font-weight: 700;
+  color: inherit;
+}
+
+/* Selection */
+::selection {
+  background: #EA580C;
+  color: #FFFFFF;
+}
+
+/* Focus */
+:focus-visible {
+  outline: 2px solid #EA580C;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--canvas);
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================================
+   SHREYYOM WARM UI UTILITIES & MICRO-GRADIENTS
+   ============================================================ */
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.mask-reveal {
+  clip-path: inset(0 0 100% 0);
+  will-change: clip-path;
+}
+
+.reveal-line {
+  overflow: hidden;
+  display: block;
+}
+
+.reveal-line > span {
+  display: block;
+  will-change: transform;
+}
+
+.split-line {
+  overflow: hidden;
+  display: block;
+}
+
+.split-word {
+  display: inline-block;
+  will-change: transform;
+}
+
+.hairline {
+  border: 1px solid var(--line);
+}
+
+/* Warm ambient gradients matching live shreyyom.com */
+.gradient-hero {
+  background:
+    radial-gradient(ellipse 65% 50% at 75% 20%, rgba(234, 88, 12, 0.07), transparent 65%),
+    radial-gradient(ellipse 55% 45% at 20% 80%, rgba(22, 163, 74, 0.06), transparent 60%),
+    var(--canvas);
+}
+
+.gradient-card {
+  background: linear-gradient(180deg, #FFFFFF 0%, #FAFAF8 100%);
+}
+
+.gradient-orange-card {
+  background: linear-gradient(135deg, rgba(234, 88, 12, 0.06) 0%, rgba(254, 215, 170, 0.15) 100%);
+}
+
+.gradient-forest-card {
+  background: linear-gradient(135deg, #061A12 0%, #0A241A 100%);
+}
+
+/* Subtle micro-texture grain */
+.grain::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.018;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+
+/* Number tabular alignment */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}

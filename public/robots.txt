@@ -1,0 +1,35 @@
+# ============ ROBOTS.TXT ============
+# Shreyyom Consultancy — Turning Business Potential into Funded Reality
+# Domain: https://shreyyom.com
+# ====================================
+
+User-agent: *
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+User-agent: Googlebot-Image
+Allow: /
+Allow: /shreyyom-logo.svg
+Allow: /shreyyom-logo-white.svg
+Allow: /favicon.svg
+
+Disallow: /admin
+Disallow: /admin/
+Disallow: /admin/*
+Disallow: /api/
+Disallow: /api/*
+
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.svg$
+Allow: /*.webp$
+Allow: /*.ico$
+Allow: /*.css$
+Allow: /*.js$
+
+Sitemap: https://shreyyom.com/sitemap.xml

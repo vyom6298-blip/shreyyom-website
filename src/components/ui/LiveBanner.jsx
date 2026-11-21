@@ -1,0 +1,129 @@
+import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Rocket, TrendingUp, ShieldCheck, ArrowRight, X } from 'lucide-react';
+
+const BANNERS = [
+  { id: 1, icon: Rocket, label: 'STARTUP INDIA', title: 'DPIIT Recognition & Benefits', path: '/startup', tone: 'blue' },
+  { id: 2, icon: ShieldCheck, label: 'SECTION 80-IAC', title: '3-Year 100% Tax Holiday', path: '/eligibility/80-iac', tone: 'sky' },
+  { id: 3, icon: TrendingUp, label: 'CREDIT GUARANTEE (CGSS)', title: 'Up to ₹10 Cr Collateral-Free Debt', path: '/funding', tone: 'blue' },
+];
+
+export default function LiveBanner({ hidden = false }) {
+  const [index, setIndex] = useState(0);
+  const [visible, setVisible] = useState(true);
+  const [dismissed, setDismissed] = useState(false);
+  const [scrolledPastHero, setScrolledPastHero] = useState(false);
+  const timerRef = useRef(null);
+
+  /* SCROLL DETECTION: Only show after user scrolls past the Hero (eliminates CTA overlap) */
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolledPastHero(window.scrollY > 400);
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    // Check initial position in case page was reloaded scrolled down
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  /* ROTATE BANNERS */
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (sessionStorage.getItem('shreyyom_banner_dismissed') === '1' || sessionStorage.getItem('certwinx_banner_dismissed') === '1') {
+      setDismissed(true);
+      return;
+    }
+    const cycle = () => {
+      setVisible(false);
+      setTimeout(() => {
+        setIndex((i) => (i + 1) % BANNERS.length);
+        setVisible(true);
+      }, 350);
+    };
+    timerRef.current = setInterval(cycle, 6000);
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, []);
+
+  const handleDismiss = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDismissed(true);
+    sessionStorage.setItem('shreyyom_banner_dismissed', '1');
+  };
+
+  // Hide on mobile (< 1024px) to keep mobile viewport clean with MobileStickyNav
+  // Also hide if dismissed, manually hidden, or while in Hero section
+  if (dismissed || hidden) return null;
+
+  const banner = BANNERS[index];
+  const tones = {
+    blue: {
+      dot: 'bg-[#EA580C]',
+      glow: 'shadow-[0_0_12px_rgba(234, 88, 12,0.5)]',
+      label: 'bg-[#EA580C]/10 text-[#EA580C] border-[#EA580C]/20',
+      arrow: 'bg-[#EA580C]/10 text-[#EA580C] group-hover:bg-[#EA580C] group-hover:text-white',
+    },
+    sky: {
+      dot: 'bg-[#F0FDF4]',
+      glow: 'shadow-[0_0_12px_rgba(254,215,170,0.5)]',
+      label: 'bg-[#F0FDF4] text-[#C2410C] border-[#BBF7D0]',
+      arrow: 'bg-[#F0FDF4] text-[#C2410C] group-hover:bg-[#C2410C] group-hover:text-white',
+    },
+  };
+  const t = tones[banner.tone] || tones.blue;
+
+  return (
+    <aside
+      className={`hidden lg:block fixed bottom-6 left-8 z-40 max-w-[320px] transition-all duration-400 ease-[cubic-bezier(0.19,1,0.22,1)] ${
+        visible && scrolledPastHero
+          ? 'opacity-100 translate-y-0 pointer-events-auto'
+          : 'opacity-0 translate-y-4 pointer-events-none'
+      }`}
+      role="status"
+      aria-label="Live advisory update"
+    >
+      <Link
+        to={banner.path}
+        className="group relative flex items-center gap-2.5 bg-white rounded-full border border-line shadow-[0_12px_32px_-12px_rgba(6,26,18,0.12)] pl-3.5 pr-2 py-2 hover:shadow-[0_16px_40px_-12px_rgba(234,88,12,0.35)] hover:border-[#EA580C]/40 transition-all duration-300"
+      >
+        {/* Pulsing live dot */}
+        <span className="relative shrink-0 flex items-center justify-center">
+          <span className={`absolute w-2.5 h-2.5 rounded-full ${t.dot} opacity-40 animate-ping`} />
+          <span className={`relative w-2 h-2 rounded-full ${t.dot} ${t.glow}`} />
+        </span>
+
+        {/* Content */}
+        <div className="flex-1 min-w-0 pr-1">
+          <div className="flex items-center gap-1.5 mb-0.5">
+            <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full border text-[8px] font-bold tracking-[0.15em] uppercase ${t.label}`}>
+              <banner.icon size={9} />
+              {banner.label}
+            </span>
+          </div>
+          <p className="text-[11px] font-semibold text-ink leading-tight truncate">
+            {banner.title}
+          </p>
+        </div>
+
+        {/* Arrow */}
+        <span
+          className={`shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-all duration-300 ${t.arrow}`}
+        >
+          <ArrowRight size={13} strokeWidth={2.4} />
+        </span>
+
+        {/* Dismiss */}
+        <button
+          onClick={handleDismiss}
+          aria-label="Dismiss banner"
+          className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-white border border-line flex items-center justify-center text-graphite hover:text-ink shadow-sm cursor-pointer"
+        >
+          <X size={10} strokeWidth={2.5} />
+        </button>
+      </Link>
+    </aside>
+  );
+}
