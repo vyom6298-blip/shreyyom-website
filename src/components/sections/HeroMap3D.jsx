@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Compass } from 'lucide-react';
 import { INDIA_MAP_DATA } from '../../data/indiaMapData';
 
@@ -20,7 +20,14 @@ export default function HeroMap3D({ onSelectState }) {
   const [hoveredCity, setHoveredCity] = useState(null);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => (typeof window !== 'undefined' ? window.innerWidth < 640 : false));
   const cardRef = useRef(null);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 640);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // 4D Interactive Perspective Tilt on Mouse Move
   const handleMouseMove = (e) => {
@@ -47,7 +54,7 @@ export default function HeroMap3D({ onSelectState }) {
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
-      className="relative w-full min-h-[480px] sm:min-h-[540px] lg:min-h-[580px] flex items-center justify-center select-none"
+      className="relative w-full min-h-[480px] sm:min-h-[540px] lg:min-h-[580px] flex items-center justify-center select-none overflow-x-clip"
       style={{ perspective: '1200px' }}
     >
       {/* 3D Tilted Wrapper */}
@@ -275,7 +282,7 @@ export default function HeroMap3D({ onSelectState }) {
             style={{
               left: '14.7%',
               top: '48.8%',
-              transform: `translate(-108%, -50%) translateZ(${isHovered ? '38px' : '24px'})`,
+              transform: `${isMobile ? 'translate(14px, -50%)' : 'translate(-108%, -50%)'} translateZ(${isHovered ? '38px' : '24px'})`,
             }}
           >
             <div className="bg-[#EA580C] text-white px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl shadow-[0_8px_20px_rgba(234,88,12,0.4)] text-[10px] sm:text-xs font-extrabold whitespace-nowrap flex items-center gap-1.5 border border-white/20">

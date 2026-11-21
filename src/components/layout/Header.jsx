@@ -388,7 +388,7 @@ export default function Header() {
               {/* Check Eligibility Button (Exact Vibrant Orange Pill from screenshot) */}
               <Link
                 to="/eligibility"
-                className="inline-flex items-center justify-center px-4.5 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-[#EA580C] hover:bg-[#C2410C] text-white text-xs sm:text-sm font-bold shadow-[0_4px_15px_rgba(234,88,12,0.35)] hover:scale-102 active:scale-98 transition-all whitespace-nowrap"
+                className="inline-flex items-center justify-center px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-xl bg-[#EA580C] hover:bg-[#C2410C] text-white text-[11.5px] sm:text-sm font-bold shadow-[0_4px_15px_rgba(234,88,12,0.35)] hover:scale-102 active:scale-98 transition-all whitespace-nowrap"
               >
                 Check Eligibility
               </Link>
